@@ -1,7 +1,3 @@
-from flask import Flask
-from flask_restful import Api, Resource,reqparse
-from flask_cors import CORS
-
 import torch as T
 import pandas as pd
 # import pythainlp
@@ -99,7 +95,7 @@ class WordsegModel(N.Module):
 wordseg_model = WordsegModel(dim_charvec=32, dim_trans=256, no_layers=3).to(device=device)
 #ใส่ path model
 wordseg_model.load_state_dict(T.load('word_segmodel_bigru_256_no3.pt',map_location=device))
-wordseg_model.eval()
+print(wordseg_model.eval())
 
 def tokenize(wordseg_model, charseq):
     charidxs = str2idxseq(charseq)
@@ -124,29 +120,21 @@ def tokenize(wordseg_model, charseq):
             word.append(charseq[i])
     if len(word) > 0: sent.append(word)
         
-    return sent
-
-
-app = Flask(__name__)
-api = Api(app)
-CORS(app)
-
-transection_checked = reqparse.RequestParser()
-transection_checked.add_argument("txt",required=True, type=str, help="Required str txt")
-
-class wordseg(Resource):
-    def get(self):
-        #print("Call! wordseg")
-        return 'word segment'
-
-    def post(self):
-        args = transection_checked.parse_args()
-        print(args['txt'])
-        words = tokenize(wordseg_model, args['txt'])
-        words = list(map(lambda x:''.join(x),words))
-        return words
-
-api.add_resource(wordseg, "/")
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#     return sent
+f = open("ws_test.txt", "r", encoding="utf8").read()
+seg_word = tokenize(wordseg_model, f)
+# print(result)
+result = []
+for i in seg_word:
+    for j in range(len(i)):
+        if i[j] == " ":
+            continue
+        if j == 0:
+            result.append("B_WORD")
+        elif j == (len(i)-1):
+            result.append("E_WORD")
+        else:
+            result.append("I_WORD")
+df_submit = pd.read_csv("ws_sample_submission.csv")
+df_submit["Predicted"] = result
+df_submit.to_csv("Submittion_no3.csv", index=False)
