@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- hero -->
+<div class="container">
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <!-- <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='img/Flask.png') }}" alt="" width="300"> -->
+        <h1 class="display-4 fw-bold">ตัดคำ!</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Thai Word Segmentation with bi-GRU</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
+                <a href="#what" class="btn btn-dark btn-lg px-4 me-sm-3">เริ่มกันเลย <i
+                        class="fas fa-caret-down"></i></a>
+                <a href="https://github.com/film8844/flask_app" target="_blank"
+                    class="btn btn-outline-secondary btn-lg px-4">Github <i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+            <div class="container px-5">
+                <img src="{{ url_for('static', filename='img/codye.png') }}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+                    width="700" height="500" loading="lazy">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="#what">
+    <h1>{% block title %} Tokenize {% endblock %}</h1>
+    <form method="post">
+        <label class="text-left" for="title">Title</label>
+        <br>
+        <input class="form-control" type="text" name="title" placeholder="Message title"
+            value="{{ request.form['title'] }}"></input>
+        <br>
+
+        <label for="content">Message Content</label>
+        <br>
+        <textarea class="form-control" name="content" placeholder="Message content" rows="15"
+            cols="60">{{ request.form['content'] }}</textarea>
+        <br>
+        <div class="text-center">
+            <button class="btn btn-success col-2" type="submit">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+<div class="mb-5">
+    <h1> Results </h1>
+    <div style="width: 90%; margin: auto">
+        {% for comment in comments %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3><span class="badge bg-dark">{{comment.title}} <span class="badge bg-light text-dark">{{ comment.len
+                            }} คำ</span></span></h3>
+
+            </div>
+            <div class="card-body">
+                <p style="font-size: 24px">
+                    {% for i in comment.word %}
+                    <span class="badge bg-primary">{{ i }}</span>
+                    {% endfor %}
+                </p>
+                
+            </div>
+            <div class="card-footer text-muted">
+                {{comment.timelong }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

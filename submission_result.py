@@ -1,16 +1,11 @@
 import torch as T
 import pandas as pd
-# import pythainlp
 import torch.nn as N
 import torch.optim as O
 
 device = T.device("cuda" if T.cuda.is_available() else "cpu")
-
 idx2char = [' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '=', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', ']', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\xa0', '®', 'é', 'ü', 'ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง', 'จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ', 'ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ', 'ด', 'ต', 'ถ', 'ท', 'ธ', 'น', 'บ', 'ป', 'ผ', 'ฝ', 'พ', 'ฟ', 'ภ', 'ม', 'ย', 'ร', 'ฤ', 'ล', 'ฦ', 'ว', 'ศ', 'ษ', 'ส', 'ห', 'ฬ', 'อ', 'ฮ', 'ฯ', 'ะ', 'ั', 'า', 'ำ', 'ิ', 'ี', 'ึ', 'ื', 'ุ', 'ู', 'ฺ', '฿', 'เ', 'แ', 'โ', 'ใ', 'ไ', 'ๅ', 'ๆ', '็', '่', '้', '๊', '๋', '์', 'ํ', '๎', '๏', '๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙', '๚', '๛', '\u200e', '–', '—', '‘', '’', '…', '™']
-
 char2idx={v:k for k,v in enumerate(idx2char)}
-
-
 
 def str2idxseq(charseq):
     idxseq = []
@@ -122,19 +117,20 @@ def tokenize(wordseg_model, charseq):
         
 #     return sent
 f = open("ws_test.txt", "r", encoding="utf8").read()
-seg_word = tokenize(wordseg_model, f)
-# print(result)
-result = []
-for i in seg_word:
-    for j in range(len(i)):
-        if i[j] == " ":
-            continue
-        if j == 0:
-            result.append("B_WORD")
-        elif j == (len(i)-1):
-            result.append("E_WORD")
-        else:
-            result.append("I_WORD")
-df_submit = pd.read_csv("ws_sample_submission.csv")
-df_submit["Predicted"] = result
-df_submit.to_csv("Submittion_no3.csv", index=False)
+seg_word = tokenize(wordseg_model, "สวัสดีครับผมชื่อฟิล์ม")
+print(seg_word)
+# # print(result)
+# result = []
+# for i in seg_word:
+#     for j in range(len(i)):
+#         if i[j] == " ":
+#             continue
+#         if j == 0:
+#             result.append("B_WORD")
+#         elif j == (len(i)-1):
+#             result.append("E_WORD")
+#         else:
+#             result.append("I_WORD")
+# df_submit = pd.read_csv("ws_sample_submission.csv")
+# df_submit["Predicted"] = result
+# df_submit.to_csv("Submittion_no3.csv", index=False)

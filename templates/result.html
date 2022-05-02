@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="px-4 pt-5 my-5 border-bottom">
+        <h1>{% block title %} Results {% endblock %}</h1>
+        <div style="width: 90%; margin: auto">
+            {% for comment in comments %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3><span class="badge bg-dark">{{comment.title}} <span class="badge bg-light text-dark">{{
+                                comment.len }} คำ</span></span></h3>
+
+                </div>
+                <div class="card-body">
+                    <p style="font-size: 20px">
+                        {% for i in comment.word %}
+                        <span class="badge bg-primary">{{ i }}</span>
+                        {% endfor %}
+                    </p>
+                    <div class="alert alert-warning" role="alert">
+                        {{comment.raw}}
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{comment.timelong }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

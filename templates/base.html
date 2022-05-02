@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %} - FlaskApp</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,400;1,500&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/7763e5ee12.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="container fixed-top ">
+        <header class="bg-white d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="{{ url_for('hello') }}"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <i class="fab fa-python" style="font-size: 2rem;"> </i>
+                <span class="fs-4">  Thai word segmentation</span>
+            </a>
+
+            <ul class="nav nav-pills ">
+                <li class="nav-item "><a href="{{ url_for('result') }}" class="btn btn-dark btn-learn" aria-current="page">Results
+                    </a>
+                </li>
+            </ul>
+        </header>
+    </div>
+    <!-- <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+            <div class="container">
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a href="{{ url_for('hello') }}" class="navbar-brand d-flex align-items-center">
+                    <strong>Thai word segmentation</strong>
+                </a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: aliceblue;" aria-current="page"
+                            href="{{ url_for('hello') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="{{ url_for('result') }}">Result</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header> -->
+    <main  class="mb-auto mt-5">
+        <div class="container">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% block content %} {% endblock %}
+        </div>
+    </main>
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <svg class="bi" width="30" height="24">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <span class="text-muted">2022© 63070228 | 63070234</span>
+            </div>
+        </footer>
+    </div>
+
+     <!-- Option 1: Bootstrap Bundle with Popper -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+     <!-- Option 2: Separate Popper and Bootstrap JS -->
+     
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    
+</body>
+
+</html>
