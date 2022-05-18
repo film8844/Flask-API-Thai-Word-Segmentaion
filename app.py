@@ -13,9 +13,9 @@ import timeago
 
 from config import *
 
-wordseg_model = WordsegModel(dim_charvec=32, dim_trans=256, no_layers=3).to(device=device)
+wordseg_model = WordsegModel(dim_charvec=32, dim_trans=256, no_layers=4).to(device=device)
 #ใส่ path model
-wordseg_model.load_state_dict(T.load('word_segmodel_bigru_256_no3.pt',map_location=device))
+wordseg_model.load_state_dict(T.load('word_segmodel_bigru_256_no4.pt',map_location=device))
 wordseg_model.eval()
 
 app = Flask(__name__)
@@ -78,4 +78,4 @@ def result():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host="0.0.0.0",port=3000)
+    app.run(debug=True, host="0.0.0.0",port=3000)
