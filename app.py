@@ -39,6 +39,8 @@ def hello():
             flash('Title is required!')
         elif not content:
             flash('Content is required!')
+        elif len(content)>10000:
+            flash('Too long content! %d charector'%len(content))
         else:
             words = tokenize(wordseg_model, content)
             words = list(map(lambda x:''.join(x),words))
@@ -62,6 +64,8 @@ def page_not_found(error):
 def word():
     args = transection_checked.parse_args()
     # print(args['msg'])
+    if(len(args['txt']) > 5000 ):
+        return {"Warning":"too long text"},500
     words = tokenize(wordseg_model, args['txt'])
     words = list(map(lambda x:''.join(x),words))
     words = "|".join(words).replace(' ','').split('|')
