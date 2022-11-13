@@ -4,3 +4,4 @@ nohub.out
 venv/
 
 .idea/
+.DS_Store
